@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Github Users App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_user_s_name">Search User\'s Name</string>
+    <string name="user_s_profile_picture">User\'s profile picture</string>
+    <string name="starglazer_s_count">Starglazer\'s count</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="no_result_s_found">No Result\'s found</string>
+    <string name="retry">Retry</string>
 </resources>
