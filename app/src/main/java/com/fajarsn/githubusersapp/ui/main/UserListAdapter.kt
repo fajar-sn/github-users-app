@@ -9,7 +9,7 @@ import com.fajarsn.githubusersapp.databinding.UserItemBinding
 
 class UserListAdapter(private val userList: List<UserResponse>) :
     RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
-    inner class ListViewHolder(var binding: UserItemBinding) : RecyclerView.ViewHolder(binding.root)
+    private lateinit var onItemClickCallBack: OnItemClickCallBack
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = UserItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,8 +24,20 @@ class UserListAdapter(private val userList: List<UserResponse>) :
 
             Glide.with(holder.itemView.context).load(user.avatarUrl).circleCrop()
                 .into(imageItemImageView)
+
+            userItemLayout.setOnClickListener { onItemClickCallBack.onItemClicked(userList[holder.bindingAdapterPosition]) }
         }
     }
 
     override fun getItemCount() = userList.size
+
+    fun setOnItemClickCallback(onItemClickCallBack: OnItemClickCallBack) {
+        this.onItemClickCallBack = onItemClickCallBack
+    }
+
+    inner class ListViewHolder(var binding: UserItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+    interface OnItemClickCallBack {
+        fun onItemClicked(data: UserResponse)
+    }
 }

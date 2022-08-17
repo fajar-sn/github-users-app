@@ -2,6 +2,7 @@ package com.fajarsn.githubusersapp.data.remote
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,9 +29,12 @@ object ApiConfig {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
-                val request =
-                    chain.request().newBuilder().addHeader("Authorization", "token $token").build()
-                return@addInterceptor chain.proceed(request)
+                val builder = chain.request().newBuilder()
+                builder.header("Authorization", "token $token")
+//                val request =
+//                    chain.request().newBuilder().addHeader("Authorization", "token $token").build()
+
+                return@addInterceptor chain.proceed(builder.build())
             }
             .build()
 

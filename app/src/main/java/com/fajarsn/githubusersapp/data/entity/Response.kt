@@ -1,7 +1,10 @@
 package com.fajarsn.githubusersapp.data.entity
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 open class UserResponse(
 
 	@field:SerializedName("avatar_url")
@@ -9,6 +12,11 @@ open class UserResponse(
 
 	@field:SerializedName("login")
 	val username: String
+) : Parcelable
+
+data class UserSearchResponse(
+	@field:SerializedName("items")
+	val items: List<UserResponse>
 )
 
 class UserDetailResponse(
