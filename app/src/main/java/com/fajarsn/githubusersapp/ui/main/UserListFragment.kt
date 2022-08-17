@@ -10,13 +10,16 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fajarsn.githubusersapp.data.repository.Result
 import com.fajarsn.githubusersapp.databinding.FragmentUserListBinding
 import com.fajarsn.githubusersapp.ui.helper.ViewModelFactory
 import com.fajarsn.githubusersapp.data.entity.UserResponse
+import com.fajarsn.githubusersapp.data.entity.UserSearchResponse
 import com.fajarsn.githubusersapp.ui.helper.BaseFragment
+import com.fajarsn.githubusersapp.ui.helper.ViewHelper
 
 @Suppress("UNCHECKED_CAST")
 class UserListFragment : BaseFragment() {
@@ -67,13 +70,27 @@ class UserListFragment : BaseFragment() {
                 }
                 is Result.Success<*> -> {
                     progressBar.visibility = View.GONE
-                    val data = result.data as List<UserResponse>
+
+                    val data =
+                        if (result.data is List<*>) result.data as List<UserResponse>
+                        else (result.data as UserSearchResponse).items
+
                     recyclerView.visibility = View.VISIBLE
 
                     recyclerView.apply {
                         visibility = View.VISIBLE
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = UserListAdapter(data)
+                        adapter = UserListAdapter(data).apply {
+                            this.setOnItemClickCallback(object :
+                                UserListAdapter.OnItemClickCallBack {
+                                override fun onItemClicked(data: UserResponse) {
+                                    val toUserDetailFragment =
+                                        UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
+                                            data)
+                                    view?.findNavController()?.navigate(toUserDetailFragment)
+                                }
+                            })
+                        }
                     }
                 }
             }
@@ -82,6 +99,15 @@ class UserListFragment : BaseFragment() {
 
     override fun setupAction() {
         val viewModel = viewModel as UserListViewModel
+
+        val textWatcher =
+            ViewHelper.addTextChangeListener {
+                val text = "${usernameSearchEditText.text.trim()}"
+                if (text.isNotBlank()) viewModel.searchUser(text)
+                else viewModel.getUserList()
+            }
+
+        usernameSearchEditText.addTextChangedListener(textWatcher)
         retryButton.setOnClickListener { viewModel.getUserList() }
     }
 

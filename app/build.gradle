@@ -19,7 +19,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [TOKEN: "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"]
+
+        // TODO: Change token with your own token if limit reached
+        manifestPlaceholders = [TOKEN: "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"]
     }
 
     buildTypes {

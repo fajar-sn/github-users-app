@@ -22,5 +22,9 @@
         android:id="@+id/userDetailFragment"
         android:name="com.fajarsn.githubusersapp.ui.detail.UserDetailFragment"
         android:label="fragment_user_detail"
-        tools:layout="@layout/fragment_user_detail" />
+        tools:layout="@layout/fragment_user_detail" >
+        <argument
+            android:name="user"
+            app:argType="com.fajarsn.githubusersapp.data.entity.UserResponse" />
+    </fragment>
 </navigation>

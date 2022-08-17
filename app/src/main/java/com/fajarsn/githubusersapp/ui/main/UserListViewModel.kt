@@ -22,4 +22,9 @@ class UserListViewModel(repository: UserRepository) : BaseViewModel(repository) 
         mutableResult.value = Result.Loading
         repository.getUserList(mutableResult)
     }
+
+    fun searchUser(username: String) = viewModelScope.launch {
+        mutableResult.value = Result.Loading
+        repository.searchUser(username, mutableResult)
+    }
 }
