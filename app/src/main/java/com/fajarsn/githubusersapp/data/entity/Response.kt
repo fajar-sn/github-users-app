@@ -2,14 +2,6 @@ package com.fajarsn.githubusersapp.data.entity
 
 import com.google.gson.annotations.SerializedName
 
-open class BaseResponse
-
-data class UserListResponse(
-
-	@field:SerializedName("items")
-	val items: List<UserResponse>
-) : BaseResponse()
-
 open class UserResponse(
 
 	@field:SerializedName("avatar_url")
@@ -17,7 +9,7 @@ open class UserResponse(
 
 	@field:SerializedName("login")
 	val username: String
-) : BaseResponse()
+)
 
 class UserDetailResponse(
 

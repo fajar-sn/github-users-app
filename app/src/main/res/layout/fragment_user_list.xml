@@ -18,12 +18,12 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:textColor="@color/gray_2"
         android:hint="@string/search_user_s_name"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:paddingHorizontal="8dp"
         android:paddingVertical="12dp"
+        android:textColor="@color/gray_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,12 +31,73 @@
         tools:text="Search" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userListRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/usernameSearchEditText"
         app:layout_constraintStart_toStartOf="@+id/usernameSearchEditText"
         app:layout_constraintTop_toBottomOf="@+id/usernameSearchEditText"
         tools:listitem="@layout/user_item" />
+
+    <ProgressBar
+        android:id="@+id/userListProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameSearchEditText" />
+
+    <TextView
+        android:id="@+id/noResultUserListTextView"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/no_result_s_found"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/userListRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameSearchEditText" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/userListErrorLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameSearchEditText">
+
+        <TextView
+            android:id="@+id/userListErrorTextView"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            tools:text="Error Text" />
+
+        <Button
+            android:id="@+id/userListRetryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="@string/retry" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

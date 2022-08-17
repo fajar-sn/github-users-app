@@ -1,60 +1,94 @@
 package com.fajarsn.githubusersapp.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fajarsn.githubusersapp.R
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.fajarsn.githubusersapp.data.repository.Result
+import com.fajarsn.githubusersapp.databinding.FragmentUserListBinding
+import com.fajarsn.githubusersapp.ui.BaseFragment
+import com.fajarsn.githubusersapp.ui.helper.ViewModelFactory
+import com.fajarsn.githubusersapp.data.entity.UserResponse
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@Suppress("UNCHECKED_CAST")
+class UserListFragment : BaseFragment() {
+    private lateinit var usernameSearchEditText: EditText
+    private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var errorLayout: LinearLayoutCompat
+    private lateinit var errorTextView: TextView
+    private lateinit var retryButton: Button
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UserListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class UserListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        viewBinding = FragmentUserListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun setupView() {
+        val binding = binding as FragmentUserListBinding
+        usernameSearchEditText = binding.usernameSearchEditText
+        progressBar = binding.userListProgressBar
+        recyclerView = binding.userListRecyclerView
+        errorLayout = binding.userListErrorLayout
+        errorTextView = binding.userListErrorTextView
+        retryButton = binding.userListRetryButton
+    }
+
+    override fun setupViewModel() {
+        val factory = ViewModelFactory.getInstance(requireContext())
+        val viewModel: UserListViewModel by viewModels { factory }
+        this.viewModel = viewModel
+
+        viewModel.result.observe(requireActivity()) { result ->
+            if (result == null) return@observe
+
+            when (result) {
+                Result.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                    setErrorViewVisibility(result is Result.Loading)
+                    recyclerView.visibility = View.GONE
+                }
+                is Result.Error -> {
+                    progressBar.visibility = View.GONE
+                    setErrorViewVisibility(result is Result.Loading)
+                    errorTextView.text = result.error
+                }
+                is Result.Success<*> -> {
+                    progressBar.visibility = View.GONE
+                    val data = result.data as List<UserResponse>
+                    recyclerView.visibility = View.VISIBLE
+
+                    recyclerView.apply {
+                        visibility = View.VISIBLE
+                        layoutManager = LinearLayoutManager(requireContext())
+                        adapter = UserListAdapter(data)
+                    }
+                }
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_list, container, false)
+    override fun setupAction() {
+        val viewModel = viewModel as UserListViewModel
+        retryButton.setOnClickListener { viewModel.getUserList() }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setErrorViewVisibility(isLoading: Boolean) {
+        progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        errorLayout.visibility = if (isLoading) View.GONE else View.VISIBLE
+        errorTextView.visibility = if (isLoading) View.GONE else View.VISIBLE
+        retryButton.visibility = if (isLoading) View.GONE else View.VISIBLE
     }
 }

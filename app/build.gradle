@@ -1,6 +1,12 @@
 plugins {
+    // Android core
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    // My plugin
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -12,8 +18,8 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [TOKEN: "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"]
     }
 
     buildTypes {
