@@ -28,14 +28,13 @@ object ApiConfig {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .addInterceptor { chain ->
-                val builder = chain.request().newBuilder()
-                builder.header("Authorization", "token $token")
-//                val request =
-//                    chain.request().newBuilder().addHeader("Authorization", "token $token").build()
 
-                return@addInterceptor chain.proceed(builder.build())
-            }
+            // TODO: Uncomment those lines if limit reached
+//            .addInterceptor { chain ->
+//                val builder = chain.request().newBuilder()
+//                builder.header("Authorization", "token $token")
+//                return@addInterceptor chain.proceed(builder.build())
+//            }
             .build()
 
         val retrofit = Retrofit.Builder()

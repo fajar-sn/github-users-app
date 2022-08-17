@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // TODO: Change token with your own token if limit reached
-        manifestPlaceholders = [TOKEN: "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"]
+        manifestPlaceholders = [TOKEN: "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"]
     }
 
     buildTypes {
