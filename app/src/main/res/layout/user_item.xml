@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageItemImageView" />
 
     <TextView
-        android:id="@+id/fullNameItemTextView"
+        android:id="@+id/usernameItemTextView"
         style="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

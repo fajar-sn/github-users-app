@@ -7,7 +7,7 @@
     tools:context=".ui.main.UserListFragment">
 
     <EditText
-        android:id="@+id/nameSearchEditText"
+        android:id="@+id/usernameSearchEditText"
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -35,8 +35,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/nameSearchEditText"
-        app:layout_constraintStart_toStartOf="@+id/nameSearchEditText"
-        app:layout_constraintTop_toBottomOf="@+id/nameSearchEditText"
+        app:layout_constraintEnd_toEndOf="@+id/usernameSearchEditText"
+        app:layout_constraintStart_toStartOf="@+id/usernameSearchEditText"
+        app:layout_constraintTop_toBottomOf="@+id/usernameSearchEditText"
         tools:listitem="@layout/user_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
