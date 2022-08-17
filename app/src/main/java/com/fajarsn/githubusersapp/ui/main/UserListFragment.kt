@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fajarsn.githubusersapp.data.repository.Result
 import com.fajarsn.githubusersapp.databinding.FragmentUserListBinding
-import com.fajarsn.githubusersapp.ui.BaseFragment
 import com.fajarsn.githubusersapp.ui.helper.ViewModelFactory
 import com.fajarsn.githubusersapp.data.entity.UserResponse
+import com.fajarsn.githubusersapp.ui.helper.BaseFragment
 
 @Suppress("UNCHECKED_CAST")
 class UserListFragment : BaseFragment() {

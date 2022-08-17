@@ -22,14 +22,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="35dp"
         android:layout_marginEnd="24dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:text="@string/user_s_full_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageDetailImageView"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageDetailImageView"
         tools:text="Michael Strong" />
 
     <TextView
@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:textColor="@color/gray_3"
+        android:text="@string/user_s_bio"
         app:layout_constraintEnd_toEndOf="@+id/usernameDetailTextView"
         app:layout_constraintStart_toStartOf="@+id/usernameDetailTextView"
         app:layout_constraintTop_toBottomOf="@+id/usernameDetailTextView"
@@ -67,12 +68,55 @@
         app:layout_constraintTop_toBottomOf="@+id/bioDetailTextView" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
         android:layout_width="0dp"
         android:layout_height="598dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2"
         tools:listitem="@layout/repository_item" />
+
+    <ProgressBar
+        android:id="@+id/repoListProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/repoListErrorLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider2">
+
+        <TextView
+            android:id="@+id/repoListErrorTextView"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            tools:text="Error Text" />
+
+        <Button
+            android:id="@+id/repoListRetryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="@string/retry" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
