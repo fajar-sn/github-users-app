@@ -28,6 +28,20 @@ class UserRepository private constructor(private val service: ApiService) {
         catchError(exception, liveData)
     }
 
+    suspend fun getUserDetail(username: String, liveData: MutableLiveData<Result>) = try {
+        val response = service.getUserDetail(username)
+        liveData.value = Result.Success(response)
+    } catch (exception: Exception) {
+        catchError(exception, liveData)
+    }
+
+    suspend fun getUserRepoList(username: String, liveData: MutableLiveData<Result>) = try {
+        val response = service.getUserRepoList(username)
+        liveData.value = Result.Success(response)
+    } catch (exception: Exception) {
+        catchError(exception, liveData)
+    }
+
     private fun catchError(exception: Exception, liveData: MutableLiveData<Result>) =
         when (exception) {
             is UnknownHostException -> liveData.value =

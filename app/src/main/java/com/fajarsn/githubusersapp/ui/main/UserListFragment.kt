@@ -75,8 +75,6 @@ class UserListFragment : BaseFragment() {
                         if (result.data is List<*>) result.data as List<UserResponse>
                         else (result.data as UserSearchResponse).items
 
-                    recyclerView.visibility = View.VISIBLE
-
                     recyclerView.apply {
                         visibility = View.VISIBLE
                         layoutManager = LinearLayoutManager(requireContext())
