@@ -1,4 +1,4 @@
-package com.fajarsn.githubusersapp.ui
+package com.fajarsn.githubusersapp.ui.helper
 
 import android.os.Bundle
 import android.text.Editable

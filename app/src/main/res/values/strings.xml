@@ -7,4 +7,6 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="no_result_s_found">No Result\'s found</string>
     <string name="retry">Retry</string>
+    <string name="user_s_full_name">User\'s Full Name</string>
+    <string name="user_s_bio">User\'s bio</string>
 </resources>
